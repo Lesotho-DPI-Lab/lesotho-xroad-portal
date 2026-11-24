@@ -1,0 +1,18 @@
+[Unit]
+Description=Lesotho X-Road Member Onboarding Portal (demonstration)
+After=network.target
+
+[Service]
+Type=simple
+User=micsti-mop_admin
+Group=micsti-mop_admin
+WorkingDirectory=/home/micsti-mop_admin/lesotho-xroad-portal
+Environment=PORTAL_DATA_DIR=/home/micsti-mop_admin/lesotho-xroad-portal/instance
+ExecStart=/home/micsti-mop_admin/lesotho-xroad-portal/.venv/bin/gunicorn --preload --workers 3 --bind 127.0.0.1:8000 --access-logfile - --error-logfile - wsgi:app
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
